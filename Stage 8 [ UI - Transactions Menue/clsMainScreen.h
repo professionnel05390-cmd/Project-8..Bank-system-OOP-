@@ -76,8 +76,8 @@ private:
 
     static void _ShowTransactionsMenue()
     {
-        cout << "\nTransactions Menue Will be here...\n";
-
+        // cout << "\nTransactions Menue will be here...\n";
+        clsTransactionsScreen::ShowTransactionsMenue();
     }
 
     static void _ShowManageUsersMenue()
@@ -175,3 +175,4 @@ public:
     }
 
 };
+
