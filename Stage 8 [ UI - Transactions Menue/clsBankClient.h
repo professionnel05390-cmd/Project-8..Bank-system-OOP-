@@ -54,7 +54,7 @@ class clsBankClient : public clsPerson
 		return vClients;
 	}
 
-	static string _ConvertClientObjectToLine(clsBankClient& Client, string Seperator = "#//#")
+	static string _ConvertClientObjectToLine(clsBankClient &Client, string Seperator = "#//#")
 	{
 		string stClientRecord = "";
 
@@ -69,7 +69,7 @@ class clsBankClient : public clsPerson
 		return stClientRecord;
 	}
 
-	static void _SaveClientsDataToFile(vector <clsBankClient>& vClients)
+	static void _SaveClientsDataToFile(vector <clsBankClient> &vClients)
 	{
 		fstream MyFile;
 		MyFile.open("Clients.txt", ios::out);
@@ -127,7 +127,7 @@ class clsBankClient : public clsPerson
 public:
 
 	clsBankClient(enMode Mode, string FirstName, string LastName, string Email, string Phone,
-		string AccountNumber, string PinCode, float AccountBalance)
+					string AccountNumber, string PinCode, float AccountBalance)
 		: clsPerson(FirstName, LastName, Email, Phone)
 	{
 		_Mode = Mode;
@@ -175,21 +175,21 @@ public:
 
 	__declspec(property(get = GetAccountBalance, put = SetAccountBalance)) float AccountBalance;
 
-	//No UI Related Code in Object
-   //void Print()
-   //{
-   //	cout << "\nInfo :";
-   //	cout << "\n______________________________";
-   //	cout << "\nFirst Name     : " << FirstName;
-   //	cout << "\nLast Name      : " << LastName;
-   //	cout << "\nFull Name      : " << FullName();
-   //	cout << "\nEmail          : " << Email;
-   //	cout << "\nPhone          : " << Phone;
-   //	cout << "\nAccount Number : " << AccountNumber();
-   //	cout << "\nPassword       : " << PinCode;
-   //	cout << "\nAcc. Balance   : " << AccountBalance;
-   //	cout << "\n______________________________\n";
-   //}
+	 //No UI Related Code in Object
+	//void Print()
+	//{
+	//	cout << "\nInfo :";
+	//	cout << "\n______________________________";
+	//	cout << "\nFirst Name     : " << FirstName;
+	//	cout << "\nLast Name      : " << LastName;
+	//	cout << "\nFull Name      : " << FullName();
+	//	cout << "\nEmail          : " << Email;
+	//	cout << "\nPhone          : " << Phone;
+	//	cout << "\nAccount Number : " << AccountNumber();
+	//	cout << "\nPassword       : " << PinCode;
+	//	cout << "\nAcc. Balance   : " << AccountBalance;
+	//	cout << "\n______________________________\n";
+	//}
 
 	static clsBankClient Find(string AccountNumber)
 	{
@@ -256,7 +256,7 @@ public:
 			{
 				return enSaveResults::svFailedEmptyObject;
 			}
-
+			
 		case enMode::UpdateMode:
 
 			_Update();
@@ -314,11 +314,31 @@ public:
 		vector <clsBankClient> vClients = GetClientsList();
 		double TotalBalances = 0;
 
-		for (clsBankClient& Client : vClients)
+		for (clsBankClient &Client : vClients)
 		{
 			TotalBalances += Client.AccountBalance;
 		}
 
 		return TotalBalances;
+	}
+
+	void Deposite(double Amount)
+	{
+		AccountBalance += Amount;
+		Save();
+	}
+
+	bool Withdraw(double Amount)
+	{
+		if (Amount > _AccountBalance)
+		{
+			return false;
+		}
+		else
+		{
+			_AccountBalance -= Amount;
+			Save();
+			return true;
+		}
 	}
 };
