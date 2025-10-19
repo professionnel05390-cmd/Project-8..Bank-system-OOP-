@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <iomanip>
 #include "clsScreen.h"
 #include "clsInputValidate.h"
 #include "clsClientListScreen.h"
@@ -9,17 +10,16 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 
+
+
 using namespace std;
 
-class clsMainScreen :protected clsScreen
+class clsMainScreen : protected clsScreen
 {
-
-
-private:
-    enum enMainMenueOptions {
-        eListClients = 1, eAddNewClient = 2, eDeleteClient = 3,
-        eUpdateClient = 4, eFindClient = 5, eShowTransactionsMenue = 6,
-        eManageUsers = 7, eExit = 8
+    enum enMainMenueOptions
+    {
+        eListClients = 1, eAddNewClient = 2, eDeleteClient = 3, eUpdateClient = 4,
+        eFindClient = 5, eShowTransactionsMenue = 6, eManageUsers = 7, eExit = 8
     };
 
     static short _ReadMainMenueOption()
@@ -29,9 +29,9 @@ private:
         return Choice;
     }
 
-    static  void _GoBackToMainMenue()
+    static void _GoBackToMainMenue()
     {
-        cout << setw(37) << left << "" << "\n\tPress any key to go back to Main Menue...\n";
+        cout << "\n\tPress any key to go back to Main Menue...\n";
 
         system("pause>0");
         ShowMainMenue();
@@ -39,40 +39,32 @@ private:
 
     static void _ShowAllClientsScreen()
     {
-        //  cout << "\nClient List Screen Will be here...\n";
+        // cout << "\nClient List Screen will be here...\n";
         clsClientListScreen::ShowClientsList();
-
-
     }
 
-    static void _ShowAddNewClientsScreen()
+    static void _ShowAddNewClientScreen()
     {
-        // cout << "\nAdd New Client Screen Will be here...\n";
+        // cout << "\nAdd New Client Screen will be here...\n";
         clsAddNewClientScreen::ShowAddNewClientScreen();
-
     }
 
     static void _ShowDeleteClientScreen()
     {
-        //cout << "\nDelete Client Screen Will be here...\n";
+        // cout << "\nDelete Client Screen will be here...\n";
         clsDeleteClientScreen::ShowDeleteClientScreen();
-
     }
 
     static void _ShowUpdateClientScreen()
     {
-        //cout << "\nUpdate Client Screen Will be here...\n";
+        // cout << "\nUpdate Client Screen will be here...\n";
         clsUpdateClientScreen::ShowUpdateClientScreen();
-
-
     }
 
     static void _ShowFindClientScreen()
     {
-       // cout << "\nFind Client Screen Will be here...\n";
+        // cout << "\nFind Client Screen will be here...\n";
         clsFindClientScreen::ShowFindClientScreen();
-
-
     }
 
     static void _ShowTransactionsMenue()
@@ -83,30 +75,27 @@ private:
 
     static void _ShowManageUsersMenue()
     {
-        cout << "\nUsers Menue Will be here...\n";
-
+        cout << "\nUsers Menue will be here...\n";
     }
 
     static void _ShowEndScreen()
     {
-        cout << "\nEnd Screen Will be here...\n";
-
+        cout << "\nEnd Screen will be here...\n";
     }
 
-    static void _PerfromMainMenueOption(enMainMenueOptions MainMenueOption)
+    static void _PerformMainMenueOption(enMainMenueOptions MainMenueOption)
     {
         switch (MainMenueOption)
         {
         case enMainMenueOptions::eListClients:
-        {
             system("cls");
             _ShowAllClientsScreen();
             _GoBackToMainMenue();
             break;
-        }
+
         case enMainMenueOptions::eAddNewClient:
             system("cls");
-            _ShowAddNewClientsScreen();
+            _ShowAddNewClientScreen();
             _GoBackToMainMenue();
             break;
 
@@ -131,31 +120,27 @@ private:
         case enMainMenueOptions::eShowTransactionsMenue:
             system("cls");
             _ShowTransactionsMenue();
+            _GoBackToMainMenue();
             break;
 
         case enMainMenueOptions::eManageUsers:
             system("cls");
             _ShowManageUsersMenue();
+            _GoBackToMainMenue();
             break;
 
         case enMainMenueOptions::eExit:
             system("cls");
             _ShowEndScreen();
             //Login();
-
             break;
         }
-
     }
-
-
 
 public:
 
-
-    static void  ShowMainMenue()
+    static void ShowMainMenue()
     {
-
         system("cls");
         _DrawScreenHeader("\t\tMain Screen");
 
@@ -172,9 +157,6 @@ public:
         cout << setw(37) << left << "" << "\t[8] Logout.\n";
         cout << setw(37) << left << "" << "===========================================\n";
 
-        _PerfromMainMenueOption((enMainMenueOptions)_ReadMainMenueOption());
+        _PerformMainMenueOption(enMainMenueOptions(_ReadMainMenueOption()));
     }
-
 };
-
-
